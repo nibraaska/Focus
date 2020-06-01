@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focusv1/screens/authentication/signIn.dart';
+import 'package:focusv1/screens/authentication/register.dart';
 import 'package:focusv1/services/models/user.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +14,7 @@ class _WrapperState extends State<Wrapper> {
     final user = Provider.of<User>(context);
     if(user == null){
       return Scaffold(
-        body: SignIn(),
+        body: Register(),
       );
     } else {
       return Scaffold(
