@@ -3,6 +3,8 @@ import 'package:focusv1/screens/authentication/register.dart';
 import 'package:focusv1/services/models/user.dart';
 import 'package:provider/provider.dart';
 
+import 'authentication/login.dart';
+
 class Wrapper extends StatefulWidget {
   @override
   _WrapperState createState() => _WrapperState();
@@ -14,7 +16,7 @@ class _WrapperState extends State<Wrapper> {
     final user = Provider.of<User>(context);
     if(user == null){
       return Scaffold(
-        body: Register(),
+        body: Login(),
       );
     } else {
       return Scaffold(

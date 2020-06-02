@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focusv1/constants/colors.dart';
+import 'package:focusv1/screens/authentication/login.dart';
 import 'package:focusv1/screens/authentication/shared/constants.dart';
 import 'package:focusv1/screens/authentication/widgets/horizontalText.dart';
 import 'package:focusv1/screens/authentication/widgets/verticalText.dart';
@@ -199,10 +200,15 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Center(
-                    child: Text(
-                      "Already have an account? Login",
-                      style: TextStyle(
-                        color: Colors.white
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(context, new MaterialPageRoute(builder: (BuildContext context) => Login()));
+                      },
+                      child: Text(
+                        "Already have an account? Login",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                       ),
                     )
                 ),
