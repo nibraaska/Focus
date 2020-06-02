@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focusv1/contants/text.dart';
+import 'package:focusv1/constants/text.dart';
 
 class HorizontalText extends StatefulWidget {
   final int type;

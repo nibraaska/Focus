@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focusv1/contants/colors.dart';
+import 'package:focusv1/constants/colors.dart';
 import 'package:focusv1/screens/authentication/shared/constants.dart';
 import 'package:focusv1/screens/authentication/widgets/horizontalText.dart';
 import 'package:focusv1/screens/authentication/widgets/verticalText.dart';
