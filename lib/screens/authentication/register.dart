@@ -37,101 +37,68 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                 child: Container(
-                  height: 85,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: <Widget>[
-                      Text(
-                        "Full name",
-                        style: TextStyle(
-                          color: Colors.white
+                    height: 85,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: <Widget>[
+                        Text(
+                          "Email",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
                         ),
-                      ),
-                      TextFormField(
-                        validator: (val) {
-                          if(val.length < 5){
-                            return 'Please enter you name';
-                          }
-                          setState(() {
-                            name = val;
-                          });
-                          return null;
-                        },
-                        style: TextStyle(
-                          color: Colors.white
+                        TextFormField(
+                          validator: (val) {
+                            if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val)){
+                              setState(() {
+                                email = val;
+                              });
+                              return null;
+                            } else {
+                              return 'Bad email';
+                            }
+                          },
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                          decoration: textInputDecoration,
                         ),
-                        decoration: textInputDecoration,
-                      ),
-                    ],
-                  )
+                      ],
+                    )
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
                 child: Container(
-                  height: 85,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: <Widget>[
-                      Text(
-                        "Country",
-                        style: TextStyle(
-                            color: Colors.white
+                    height: 85,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: <Widget>[
+                        Text(
+                          "Username",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
                         ),
-                      ),
-                      TextFormField(
-                        validator: (val) {
-                          if(val.length < 5){
-                            return 'Please enter your country';
-                          }
-                          setState(() {
-                            country = val;
-                          });
-                          return null;
-                        },
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
-                        decoration: textInputDecoration,
-                      ),
-                    ],
-                  )
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
-                child: Container(
-                  height: 85,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: <Widget>[
-                      Text(
-                        "Email",
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
-                      ),
-                      TextFormField(
-                        validator: (val) {
-                          if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val)){
+                        TextFormField(
+                          validator: (val) {
+                            if(val.length < 5){
+                              return 'Please enter you name';
+                            }
                             setState(() {
-                              email = val;
+                              name = val;
                             });
                             return null;
-                          } else {
-                            return 'Bad email';
-                          }
-                        },
-                        style: TextStyle(
-                            color: Colors.white
+                          },
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                          decoration: textInputDecoration,
                         ),
-                        decoration: textInputDecoration,
-                      ),
-                    ],
-                  )
+                      ],
+                    )
                 ),
               ),
               Padding(

@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
-                            Icons.edit,
+                            Icons.check,
                             color: mainText,
                           ),
                           SizedBox(width: 10),
