@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focusv1/constants/colors.dart';
 import 'package:focusv1/screens/bottomNavigation/screens/chat.dart';
 import 'package:focusv1/screens/bottomNavigation/screens/create.dart';
 import 'package:focusv1/screens/bottomNavigation/screens/explore.dart';
@@ -27,14 +28,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Focus'),
-        backgroundColor: Colors.lightBlueAccent[400],
+        backgroundColor: accentColor,
         elevation: 0.0,
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: true,
         unselectedItemColor: Colors.black54,
-        selectedItemColor: Colors.lightBlueAccent[400],
+        selectedItemColor: accentColor,
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
