@@ -3,6 +3,7 @@ import 'package:focusv1/contants/colors.dart';
 import 'package:focusv1/screens/authentication/shared/constants.dart';
 import 'package:focusv1/screens/authentication/widgets/horizontalText.dart';
 import 'package:focusv1/screens/authentication/widgets/verticalText.dart';
+import 'package:focusv1/services/auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -10,6 +11,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
+  final _formKey = GlobalKey<FormState>();
+  String name, country, email, password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,145 +25,190 @@ class _RegisterState extends State<Register> {
               end: Alignment.bottomLeft,
               colors: [gradient1, gradient2]),
         ),
-        child: ListView(
-          children: <Widget>[
-            Row(children: <Widget>[
-              VerticalText(type: 0),
-              HorizontalText(type: 1),
-            ]),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-              child: Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Text(
-                      "Full name",
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: <Widget>[
+              Row(children: <Widget>[
+                VerticalText(type: 0),
+                HorizontalText(type: 1),
+              ]),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+                child: Container(
+                  height: 85,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      Text(
+                        "Full name",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                      TextFormField(
+                        validator: (val) {
+                          if(val.length < 5){
+                            return 'Please enter you name';
+                          }
+                          setState(() {
+                            name = val;
+                          });
+                          return null;
+                        },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                        decoration: textInputDecoration,
+                      ),
+                    ],
+                  )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
+                child: Container(
+                  height: 85,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      Text(
+                        "Country",
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                      TextFormField(
+                        validator: (val) {
+                          if(val.length < 5){
+                            return 'Please enter your country';
+                          }
+                          setState(() {
+                            country = val;
+                          });
+                          return null;
+                        },
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                        decoration: textInputDecoration,
+                      ),
+                    ],
+                  )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
+                child: Container(
+                  height: 85,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                      TextFormField(
+                        validator: (val) {
+                          if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val)){
+                            setState(() {
+                              email = val;
+                            });
+                            return null;
+                          } else {
+                            return 'Bad email';
+                          }
+                        },
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                        decoration: textInputDecoration,
+                      ),
+                    ],
+                  )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
+                child: Container(
+                  height: 85,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      Text(
+                        "Password",
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        validator: (val) {
+                          if(val.length < 6){
+                            return 'Please enter a longer password';
+                          }
+                          setState(() {
+                            password = val;
+                          });
+                          return null;
+                        },
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                        decoration: textInputDecoration,
+                      ),
+                    ],
+                  )
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+                child: RaisedButton(
+                  padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                  onPressed: () async {
+                    if(_formKey.currentState.validate()){
+                      await AuthService().registerWithEmailAndPassword(email, password);
+                    }
+                  },
+                  elevation: 5.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.edit,
+                        color: mainText,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Register",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: mainText
+                        ),
+                      )
+                    ],
+                  )
+                )
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Center(
+                    child: Text(
+                      "Already have an account? Login",
                       style: TextStyle(
                         color: Colors.white
-                      ),
-                    ),
-                    TextFormField(
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                      decoration: textInputDecoration,
-                    ),
-                  ],
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
-              child: Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Text(
-                      "Country",
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
-                    ),
-                    TextFormField(
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
-                      decoration: textInputDecoration,
-                    ),
-                  ],
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
-              child: Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
-                    ),
-                    TextFormField(
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
-                      decoration: textInputDecoration,
-                    ),
-                  ],
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
-              child: Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    Text(
-                      "Password",
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
-                    ),
-                    TextFormField(
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
-                      decoration: textInputDecoration,
-                    ),
-                  ],
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-              child: RaisedButton(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                onPressed: () => {},
-                elevation: 5.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit,
-                      color: mainText,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      "Register",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: mainText
                       ),
                     )
-                  ],
-                )
-              )
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Center(
-                  child: Text(
-                    "Already have an account? Login",
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
-                  )
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
