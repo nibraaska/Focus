@@ -52,7 +52,7 @@ class _RegisterState extends State<Register> {
                           validator: (val) {
                             if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val)){
                               setState(() {
-                                email = val;
+                                email = val.trim();
                               });
                               return null;
                             } else {
@@ -88,7 +88,7 @@ class _RegisterState extends State<Register> {
                               return 'Please enter you name';
                             }
                             setState(() {
-                              name = val;
+                              name = val.trim();
                             });
                             return null;
                           },
@@ -122,7 +122,7 @@ class _RegisterState extends State<Register> {
                             return 'Please enter a longer password';
                           }
                           setState(() {
-                            password = val;
+                            password = val.trim();
                           });
                           return null;
                         },
@@ -141,7 +141,7 @@ class _RegisterState extends State<Register> {
                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
-                      await AuthService().registerWithEmailAndPassword(email, password);
+                      await AuthService().registerWithEmailAndPassword(email, password, name);
                     }
                   },
                   elevation: 5.0,

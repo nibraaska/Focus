@@ -1,5 +1,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:focusv1/services/models/user.dart';
 
 class AuthService {
@@ -24,10 +25,14 @@ class AuthService {
   }
 
   // Register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password, String username) async {
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      print("here");
       User user =  _userFromFirebaseUser(result.user);
+      await FirebaseDatabase().reference().child("users").child(user.uid).set({
+        'username': username
+      });
       return user;
     } catch (e) {
       print(e.toString());
