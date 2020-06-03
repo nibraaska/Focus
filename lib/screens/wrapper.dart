@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:focusv1/screens/authentication/auth_wrapper.dart';
 import 'package:focusv1/screens/bottomNavigation/bottomNav.dart';
 import 'package:focusv1/services/models/user.dart';
 import 'package:provider/provider.dart';
 
-import 'authentication/login.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _WrapperState extends State<Wrapper> {
     final user = Provider.of<User>(context);
     if(user == null){
       return Scaffold(
-        body: Login(),
+        body: AuthWrapper(),
       );
     } else {
       return Scaffold(

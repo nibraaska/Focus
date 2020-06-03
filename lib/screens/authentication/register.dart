@@ -7,6 +7,8 @@ import 'package:focusv1/screens/authentication/widgets/verticalText.dart';
 import 'package:focusv1/services/auth.dart';
 
 class Register extends StatefulWidget {
+  final Function changePage;
+  Register({this.changePage});
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -169,7 +171,7 @@ class _RegisterState extends State<Register> {
                 child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(context, new MaterialPageRoute(builder: (BuildContext context) => Login()));
+                        this.widget.changePage();
                       },
                       child: Text(
                         "Already have an account? Login",
