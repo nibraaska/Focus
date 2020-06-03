@@ -18,10 +18,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    if(page == 0){
-      return Login(changePage: changePage);
-    } else {
-      return Register(changePage: changePage);
-    }
+    return (page == 0)? Login(changePage: changePage) : Register(changePage: changePage);
   }
 }

@@ -8,9 +8,4 @@ class DatabaseService{
   factory DatabaseService() {
     return _singleton;
   }
-
-  Future addUsername(String username) async {
-
-  }
-
 }

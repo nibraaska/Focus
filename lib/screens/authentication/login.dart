@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focusv1/constants/colors.dart';
-import 'package:focusv1/screens/authentication/register.dart';
 import 'package:focusv1/screens/authentication/shared/constants.dart';
 import 'package:focusv1/screens/authentication/widgets/horizontalText.dart';
 import 'package:focusv1/screens/authentication/widgets/verticalText.dart';
@@ -55,7 +54,7 @@ class _LoginState extends State<Login> {
                           validator: (val) {
                             if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val)){
                               setState(() {
-                                email = val;
+                                email = val.trim();
                               });
                               return null;
                             } else {
@@ -92,7 +91,7 @@ class _LoginState extends State<Login> {
                               return 'Please enter a longer password';
                             }
                             setState(() {
-                              password = val;
+                              password = val.trim();
                             });
                             return null;
                           },
