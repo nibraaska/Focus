@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focusv1/screens/accountSetup/preferencesBasics.dart';
 import 'package:focusv1/screens/wrapper.dart';
 import 'package:focusv1/services/auth.dart';
 import 'package:focusv1/services/models/user.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         title: 'Focus',
-        home: Wrapper(),
+        home: PreferencesBasic(),
         debugShowCheckedModeBanner: false,
       ),
     );
