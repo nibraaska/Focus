@@ -28,6 +28,8 @@ dependencies:
 #  fluttertoast: ^4.0.1
 #  shared_preferences: ^0.5.7+3
   image_picker: ^0.6.7
+  autocomplete_textfield: ^1.7.3
+  loading_overlay: ^0.2.1
 #  cached_network_image: ^2.2.0+1
 #  intl: ^0.16.1
 

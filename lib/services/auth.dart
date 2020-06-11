@@ -12,6 +12,7 @@ class AuthService {
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  User currentUser;
 
   // Stream to check that user is logging in and out
   Stream<User> get user {
@@ -33,6 +34,7 @@ class AuthService {
       await FirebaseDatabase().reference().child("users").child(user.uid).set({
         'username': username
       });
+      currentUser = user;
       return user;
     } catch (e) {
       print(e.toString());
@@ -44,7 +46,9 @@ class AuthService {
   Future signInWithEmailAndPassword(String email, String password) async {
     try{
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return _userFromFirebaseUser(result.user);
+      User user =  _userFromFirebaseUser(result.user);
+      currentUser = user;
+      return user;
     } catch (e) {
       print(e.toString());
       return null;

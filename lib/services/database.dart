@@ -1,5 +1,4 @@
-import 'package:focusv1/services/auth.dart';
-import 'package:focusv1/services/models/user.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class DatabaseService{
 
@@ -7,5 +6,20 @@ class DatabaseService{
   static final DatabaseService _singleton = DatabaseService._internal();
   factory DatabaseService() {
     return _singleton;
+  }
+
+  DatabaseReference _ref = FirebaseDatabase().reference();
+
+  Future getCountriesSetUp() async {
+    try{
+      _ref.child('colleges').once().then((DataSnapshot snapshot) {
+        Map<dynamic, dynamic> map = snapshot.value;
+        print("here");
+        return map.keys.toList();
+      });
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 }
