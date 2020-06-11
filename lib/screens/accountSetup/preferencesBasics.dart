@@ -40,25 +40,24 @@ class _PreferencesBasicState extends State<PreferencesBasic> {
   }
 
   getCountries() async {
-    DatabaseService().getCountriesSetUp().then((value) async {
-      suggestions = value;
+    suggestions = await DatabaseService().getCountriesSetUp().then((value) => value);
+    setState(() {
+      _loading = false;
     });
   }
 
   @override
   void initState() {
     getCountries();
-    setState(() {
-      _loading = false;
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    AutoCompleteTextField searchTextField;
-    GlobalKey<AutoCompleteTextFieldState> key = new GlobalKey();
+    GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
+    List<String> added = [];
+    String currentText = "";
 
     return Scaffold(
       body: LoadingOverlay(
@@ -102,28 +101,17 @@ class _PreferencesBasicState extends State<PreferencesBasic> {
                             style: TextStyle(
                                 color: Colors.white
                             ),
-                          ), searchTextField = AutoCompleteTextField(
-                            key: key,
-                            clearOnSubmit: false,
-                            suggestions: suggestions,
-                            style: TextStyle(color: Colors.black, fontSize: 16.0),
+                          ), SimpleAutoCompleteTextField(
                             decoration: textInputDecoration,
-                            itemFilter: (item, query) {
-                              return item.name
-                                  .toLowerCase()
-                                  .startsWith(query.toLowerCase());
-                            },
-                            itemSorter: (a, b) {
-                              return a.name.compareTo(b.name);
-                            },
-                            itemSubmitted: (item) {
-                              setState(() {
-                                searchTextField.textField.controller.text = item.name;
-                              });
-                            },
-                            itemBuilder: (context, item) {
-                              return item;
-                            },
+                            textChanged: (text) => currentText = text,
+                            clearOnSubmit: true,
+                            key: key,
+                            suggestions: suggestions,
+                            textSubmitted: (text) => setState(() {
+                              if (text != "") {
+                                added.add(text);
+                              }
+                            }),
                           )
                         ],
                       )

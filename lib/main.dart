@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         title: 'Focus',
-        home: Wrapper(),
+        home: PreferencesBasic(),
         debugShowCheckedModeBanner: false,
       ),
     );

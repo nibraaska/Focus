@@ -10,16 +10,8 @@ class DatabaseService{
 
   DatabaseReference _ref = FirebaseDatabase().reference();
 
-  Future getCountriesSetUp() async {
-    try{
-      _ref.child('colleges').once().then((DataSnapshot snapshot) {
-        Map<dynamic, dynamic> map = snapshot.value;
-        print("here");
-        return map.keys.toList();
-      });
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
+  Future<List<String>> getCountriesSetUp() async {
+    var result = await _ref.child('colleges').once().then((value) => (value.value as Map<dynamic, dynamic>).keys.toList());
+    return result.cast<String>();
   }
 }
